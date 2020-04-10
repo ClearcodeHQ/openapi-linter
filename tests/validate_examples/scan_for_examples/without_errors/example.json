@@ -1,0 +1,14 @@
+{
+  "rootobject1": {
+    "aaa": {
+      "bbb": {
+        "exampleField": [1,2,3]
+      }
+    }
+  },
+  "rootobject2": {
+    "ddd": {
+      "eee": "ffff"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Example",
+  "type": "object",
+  "properties": {
+    "exampleField": {
+      "description": "Example field.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "array",
+        "items": {
+          "type": "integer"
+        }
+      }
+    }
+  },
+  "required": [
+    "exampleField"
+  ],
+  "additionalProperties": false
+}

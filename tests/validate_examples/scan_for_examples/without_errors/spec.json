@@ -1,0 +1,10 @@
+{
+  "rootObject": {
+    "example": {
+      "$ref": "example.json#rootobject1/aaa/bbb"
+    },
+    "schema" : {
+      "$ref": "schema.json"
+    }
+  }
+}

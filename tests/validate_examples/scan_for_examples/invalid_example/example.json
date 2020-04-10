@@ -1,0 +1,14 @@
+{
+  "rootobject1": {
+    "aaa": {
+      "bbb": {
+        "xxx": 1
+      }
+    }
+  },
+  "rootobject2": {
+    "ddd": {
+      "eee": "ffff"
+    }
+  }
+}
