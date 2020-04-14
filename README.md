@@ -8,9 +8,17 @@
 [![license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/clearcodehq/openapi-linter/blob/master/LICENSE)
 
 
-> :warning: `openapi-linter` is an Clearcode's internal tool that helps with the validation of some parts of the OpenAPI specification.
-> It serves mostly as the first Golang project suffers the NIH syndrome.
+> :warning: `openapi-linter` is an Clearcode's internal tool that helps with the validation of some parts of the OpenAPI specification and it's currently in development.
+> It serves mostly as the first Golang project suffers the NIH syndrome
 > if you need a production ready solution, you should check projects from the [GopenAPI initiative](https://github.com/gopenapi).
+
+# Roadmap
+* Validate OpenAPI Examples of:
+  * [ ] Query Parameters
+  * [ ] Request bodies
+  * [ ] Response bodies
+  * [ ] Objects
+  * [ ] Arrays
 
 ## Getting started
 
