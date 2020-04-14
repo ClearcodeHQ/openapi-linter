@@ -1,8 +1,16 @@
 # openapi-linter
 
+![status](https://img.shields.io/badge/status-alpha-red.svg)
+[![actions atatus](https://github.com/clearcodehq/openapi-linter/workflows/Pipeline/badge.svg)](https://github.com/clearcodehq/openapi-linter/actions)
+[![go report](https://goreportcard.com/badge/github.com/clearcodehq/openapi-linter)](https://goreportcard.com/report/github.com/clearcodehq/openapi-linter)
+[![godoc](https://godoc.org/github.com/clearcodehq/openapi-linter?status.svg)](http://godoc.org/github.com/clearcodehq/openapi-linter)
+[![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c)](https://pkg.go.dev/github.com/clearcodehq/openapi-linter)
+[![license](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/clearcodehq/openapi-linter/blob/master/LICENSE)
 
-**IMPORTANT**
-`openapi-linter` is an internal tool that helps with the validation of some parts 
+
+> :warning: `openapi-linter` is an Clearcode's internal tool that helps with the validation of some parts of the OpenAPI specification.
+> It serves mostly as the first Golang project suffers the NIH syndrome.
+> if you need a production ready solution, you should check projects from the [GopenAPI initiative](https://github.com/gopenapi).
 
 ## Getting started
 
