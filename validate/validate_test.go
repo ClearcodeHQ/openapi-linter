@@ -1,8 +1,8 @@
 package validate_test
 
 import (
-	"github.com/clearcodehq/openapi-linter/validate"
 	"fmt"
+	"github.com/clearcodehq/openapi-linter/validate"
 	"reflect"
 	"testing"
 )

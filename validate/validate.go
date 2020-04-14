@@ -16,34 +16,33 @@ import (
 type ValidationError struct {
 	FilePath string
 	JsonPath string
-	Err error
+	Err      error
 }
 
 // Recursively iterates over jsonObject and tries to validate all nested objects as JSON object schemas.
 // Returns the list of validation errors if found
-func TraverseJSONObject(filePath string, jsonPath string, jsonObject map[string] interface{}, errors *map[string] ValidationError){
+func TraverseJSONObject(filePath string, jsonPath string, jsonObject map[string]interface{}, errors *map[string]ValidationError) {
 	for key, value := range jsonObject {
 		childPath := jsonPath
 		objectType := reflect.ValueOf(value).Kind()
 
 		if objectType.String() == "map" {
 			childPath = fmt.Sprintf("%s.%s", jsonPath, key)
-			childObject := value.(map[string] interface{})
+			childObject := value.(map[string]interface{})
 
 			TraverseJSONObject(filePath, childPath, childObject, errors)
 		} else {
 			validationKey := fmt.Sprintf("%s:%s", filePath, jsonPath)
-			_, wasValidated := (*errors) [validationKey]
+			_, wasValidated := (*errors)[validationKey]
 			if !wasValidated {
-				err := ValidateSchema(&jsonObject);
+				err := ValidateSchema(&jsonObject)
 				if err != nil {
-					(*errors) [validationKey] = ValidationError{filePath, jsonPath, err}
+					(*errors)[validationKey] = ValidationError{filePath, jsonPath, err}
 				}
 			}
 		}
 	}
 }
-
 
 // Interface to make testing easier
 type JsonFileInfo interface {
@@ -59,14 +58,14 @@ func IsJsonFile(fileInfo JsonFileInfo) bool {
 	}
 
 	if strings.HasSuffix(fileInfo.Name(), ".json") {
-		return true;
+		return true
 	}
 	return false
 }
 
 // Scans the directory and returns only JSON files
-func FindJsonFiles(dir string) ([] string, error) {
-	paths := [] string {}
+func FindJsonFiles(dir string) ([]string, error) {
+	paths := []string{}
 
 	err := filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		if info != nil && IsJsonFile(info) {
@@ -76,56 +75,57 @@ func FindJsonFiles(dir string) ([] string, error) {
 	})
 	return paths, err
 }
+
 // validates all schemas within given directory
 func ValidateAllSchemasInDir(dir string) (map[string]ValidationError, error) {
 
 	jsonFiles, err := FindJsonFiles(dir)
 	if err != nil {
-		return map[string] ValidationError{}, err
+		return map[string]ValidationError{}, err
 	}
 
-	jsonErrors := make(map[string] ValidationError)
+	jsonErrors := make(map[string]ValidationError)
 	for _, file := range jsonFiles {
-			if fileErr := ValidateJSONFile(file, &jsonErrors); fileErr != nil {
-				return map[string] ValidationError{}, fileErr
-			}
+		if fileErr := ValidateJSONFile(file, &jsonErrors); fileErr != nil {
+			return map[string]ValidationError{}, fileErr
 		}
+	}
 	return jsonErrors, err
 }
 
 // Opens a file and unmarshals its content and validates it.
-func ValidateJSONFile(schemaPath string, jsonErrors *map[string] ValidationError) error {
+func ValidateJSONFile(schemaPath string, jsonErrors *map[string]ValidationError) error {
 	jsonFile, err := os.Open(schemaPath)
 
 	if err != nil {
 		return err
 	}
-	jsonBytes, err  := ioutil.ReadAll(jsonFile);
+	jsonBytes, err := ioutil.ReadAll(jsonFile)
 
 	if err != nil {
 		return err
 	}
 
-	jsonSchema := map[string] interface {}{}
+	jsonSchema := map[string]interface{}{}
 
 	err = json.Unmarshal(jsonBytes, &jsonSchema)
 	if err != nil {
 		return err
 	}
 
-	TraverseJSONObject( schemaPath, "", jsonSchema, jsonErrors)
+	TraverseJSONObject(schemaPath, "", jsonSchema, jsonErrors)
 
 	defer jsonFile.Close()
-	return nil;
+	return nil
 }
 
 // Check the object is a valid JSON Schema.
-func ValidateSchema(schemaContent *map[string] interface{}) (error) {
+func ValidateSchema(schemaContent *map[string]interface{}) error {
 	schemaLoader := gojsonschema.NewSchemaLoader()
 	schemaLoader.Validate = true
 	fileLoader := gojsonschema.NewGoLoader(schemaContent)
 	if err := schemaLoader.AddSchemas(fileLoader); err != nil {
 		return err
 	}
-	return nil;
+	return nil
 }

@@ -72,7 +72,7 @@ func TestFindExamples(t *testing.T) {
 			{},
 		}
 		expectedErrors := []error{
-			fmt.Errorf("Can't find the schema of the example."),
+			fmt.Errorf("can't find schema of the example"),
 		}
 
 		// WHEN
@@ -94,12 +94,8 @@ func TestFindExamples(t *testing.T) {
 				"schema": { "$ref": "smth.json" }
 			}		
 		}`), &obj)
-		expectedExamples := []Example{
-			{},
-		}
-		expectedErrors := []error{
-			fmt.Errorf("The reference to schema/example is missing, inline objects aren't supported."),
-		}
+		expectedExamples := []Example{}
+		expectedErrors := []error{}
 
 		// WHEN
 		examples, errors := findExamplesHelper(obj)
@@ -123,12 +119,8 @@ func TestFindExamples(t *testing.T) {
 				}
 			}		
 		}`), &obj)
-		expectedExamples := []Example{
-			{},
-		}
-		expectedErrors := []error{
-			fmt.Errorf("The reference to schema/example is missing, inline objects aren't supported."),
-		}
+		expectedExamples := []Example{}
+		expectedErrors := []error{}
 
 		// WHEN
 		examples, errors := findExamplesHelper(obj)
@@ -153,12 +145,8 @@ func TestFindExamples(t *testing.T) {
 					"schema": { "$ref": "smth.json" }
 				}		
 			}`, invalidObjectTestCase)), &obj)
-			expectedExamples := []Example{
-				{},
-			}
-			expectedErrors := []error{
-				fmt.Errorf("Can't cast the schema/example object to map[string]."),
-			}
+			expectedExamples := []Example{}
+			expectedErrors := []error{}
 			// WHEN
 			examples, errors := findExamplesHelper(obj)
 
@@ -179,7 +167,7 @@ func TestFindExamples(t *testing.T) {
 				{},
 			}
 			expectedErrors := []error{
-				fmt.Errorf("Can't cast the schema/example object to map[string]."),
+				fmt.Errorf("can't find schema of the example"),
 			}
 
 			// WHEN
@@ -278,10 +266,10 @@ func TestGetReferenceLoader(t *testing.T) {
 	getReferenceLoaderHelper := func(fixtureName string) (map[string]interface{}, gojsonschema.JSONLoader) {
 		fixturePath := getFixturesPath(fixtureName)
 		loader, _ := GetReferenceLoader(fixturePath)
-		obj, _ := loader.LoadJSON()
+		obj, _ := (*loader).LoadJSON()
 		objMap, _ := obj.(map[string]interface{})
 
-		return objMap, loader
+		return objMap, *loader
 	}
 
 	t.Run("Load file without the path reference", func(t *testing.T) {
@@ -302,12 +290,10 @@ func TestGetReferenceLoader(t *testing.T) {
 			"eee": "fff",
 		}
 		// WHEN
-		extractedObject, partialPath := getReferenceLoaderHelper("nested.json#/aaa/ccc")
+		extractedObject, _ := getReferenceLoaderHelper("nested.json#/aaa/ccc")
 
 		// THEN
 		Assert.Equal(extractedObject, expectedObject)
-
-		RemovePartialLoader(partialPath)
 	})
 }
 

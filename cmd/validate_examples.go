@@ -1,8 +1,8 @@
 package cmd
 
 import (
-	validate_examples "github.com/clearcodehq/openapi-linter/validate-examples"
 	"fmt"
+	validate_examples "github.com/clearcodehq/openapi-linter/validate-examples"
 	"github.com/spf13/cobra"
 )
 

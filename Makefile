@@ -1,4 +1,4 @@
-.PHONY: build clean test help default
+.PHONY: build clean test help default fmt fmt-check lint
 
 BIN_NAME=openapi-linter
 
@@ -21,6 +21,9 @@ help:
 	@echo '    make test            Run tests on a compiled project.'
 	@echo '    make push            Push tagged images to registry'
 	@echo '    make clean           Clean the directory tree.'
+	@echo '    make fmt           	Formats the Golang files to the same convention.'
+	@echo '    make fmt-check      	Checks if the Golang files are correctly formatted.'
+	@echo '    make lint 	     	Run all required linters.'
 	@echo
 
 build:
@@ -62,4 +65,10 @@ test:
 	go test -v ./...
 
 fmt:
-	go fmt .
+	gofmt -w .
+
+fmt-check:
+	gofmt -l . && \
+	test -z $(shell gofmt -l .)
+
+lint: fmt-check
