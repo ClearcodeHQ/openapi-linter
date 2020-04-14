@@ -1,7 +1,7 @@
 # openapi-linter
 
 ![status](https://img.shields.io/badge/status-alpha-red.svg)
-[![actions atatus](https://github.com/clearcodehq/openapi-linter/workflows/Pipeline/badge.svg)](https://github.com/clearcodehq/openapi-linter/actions)
+[![actions status](https://github.com/clearcodehq/openapi-linter/workflows/Pipeline/badge.svg)](https://github.com/clearcodehq/openapi-linter/actions)
 [![go report](https://goreportcard.com/badge/github.com/clearcodehq/openapi-linter)](https://goreportcard.com/report/github.com/clearcodehq/openapi-linter)
 [![godoc](https://godoc.org/github.com/clearcodehq/openapi-linter?status.svg)](http://godoc.org/github.com/clearcodehq/openapi-linter)
 [![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c)](https://pkg.go.dev/github.com/clearcodehq/openapi-linter)
